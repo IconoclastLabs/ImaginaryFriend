@@ -1,0 +1,28 @@
+GIT
+  remote: git://github.com/clearsightstudio/ProMotion.git
+  revision: 53ce57f094d34c0c276b4ab4513984b51c4697a2
+  branch: version-1.0
+  specs:
+    ProMotion (0.7.6)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    awesome_print_motion (0.1.0)
+    forgery (0.5.0)
+    motion-bundler (0.2.0)
+      thor
+    rake (10.1.0)
+    sugarcube (0.20.25)
+    thor (0.18.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ProMotion!
+  awesome_print_motion
+  forgery
+  motion-bundler
+  rake
+  sugarcube
