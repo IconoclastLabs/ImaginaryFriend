@@ -13,14 +13,22 @@ class RootScreen < PM::Screen
         text_color: UIColor.whiteColor
       }
       add UILabel.new, {
-		  text: "This is awesome!",
-		  font: UIFont.systemFontOfSize(18),
-		  resize: [ :left, :right, :top, :bottom, :width, :height ], # autoresizingMask
-		  left: 5, # These four attributes are used with CGRectMake
-		  top: 5,
-		  width: 20,
-		  height: 20
-		}
+			  text: "This is awesome!",
+			  font: UIFont.systemFontOfSize(18),
+			  resize: [ :left, :right, :top, :bottom, :width, :height ], # autoresizingMask
+			  left: 5, # These four attributes are used with CGRectMake
+			  top: 5,
+			  width: 20,
+			  height: 20
+			}
+			@button2 = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+	      frame: CGRectMake(20, 80, 280, 40),
+	      "setTitle:forState:" => [ "It's a button", UIControlStateNormal ],
+	      "addTarget:action:forControlEvents" => [ self, :do_something, UIControlEventTouchUpInside ]
+	    }
+
+
+
       true
     end
   end
@@ -29,11 +37,9 @@ class RootScreen < PM::Screen
   end
 
   def will_appear
-    set_attributes self.view, {
-      backgroundColor: UIColor.whiteColor
-    }
-    ap Forgery(:basic).password
-    ap Forgery(:internet).email_address
+    # These work:
+    #ap Forgery(:basic).password
+    #ap Forgery(:internet).email_address
   end
 
   def will_disappear
@@ -49,7 +55,7 @@ class RootScreen < PM::Screen
   end
 
   # custom method, triggered by tapping right nav bar button
-  def go_to_next
-    #open NextScreen
+  def do_something
+    ap "did something"
   end
 end
