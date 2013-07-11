@@ -130,6 +130,9 @@ module MotionBundler
     "/Users/mattgarrison/.rbenv/versions/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sugarcube-0.20.25/lib/sugarcube/uiwebview.rb",
     "/Users/mattgarrison/.rbenv/versions/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sugarcube-0.20.25/lib/sugarcube/uuid.rb",
     "/Users/mattgarrison/.rbenv/versions/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sugarcube-0.20.25/lib/sugarcube/version.rb",
+    "/Users/mattgarrison/.rbenv/versions/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sugarcube-0.20.25/lib/sugarcube-repl/object.rb",
+    "/Users/mattgarrison/.rbenv/versions/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sugarcube-0.20.25/lib/sugarcube-attributedstring/nsattributedstring.rb",
+    "/Users/mattgarrison/.rbenv/versions/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sugarcube-0.20.25/lib/sugarcube-568/uiimage.rb",
     "/Users/mattgarrison/Projects/apps/ImaginaryFriend/app/screens/root_screen.rb",
     "/Users/mattgarrison/Projects/apps/ImaginaryFriend/app/app_delegate.rb"
   ]

@@ -1,6 +1,7 @@
 require 'forgery'
 
 class RootScreen < PM::Screen
+  include SugarCube::CoreGraphics # gives us the Rect() command
   title "Imaginary Friend"
 
   def will_present
@@ -8,27 +9,24 @@ class RootScreen < PM::Screen
 
   def on_presented
     @loaded_views ||= begin
-      add UIView.alloc.initWithFrame(self.frame), {
-        background_color: UIColor.grayColor,
-        text_color: UIColor.whiteColor
-      }
-      add UILabel.new, {
-			  text: "This is awesome!",
-			  font: UIFont.systemFontOfSize(18),
-			  resize: [ :left, :right, :top, :bottom, :width, :height ], # autoresizingMask
-			  left: 5, # These four attributes are used with CGRectMake
-			  top: 5,
-			  width: 20,
-			  height: 20
-			}
-			@button2 = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
-	      frame: CGRectMake(20, 80, 280, 40),
-	      "setTitle:forState:" => [ "It's a button", UIControlStateNormal ],
-	      "addTarget:action:forControlEvents" => [ self, :do_something, UIControlEventTouchUpInside ]
+      
+
+			@face_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+	      frame: Rect([20, 80], [280, 40]),
+	      "setTitle:forState:" => [ "Add Face Pictures", UIControlStateNormal ],
+	      "addTarget:action:forControlEvents" => [ self, :add_face_pictures, UIControlEventTouchUpInside ]
 	    }
-
-
-
+	    @landscape_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+        frame: Rect([20.0, 170.0], [280.0, 40.0]),
+	      "setTitle:forState:" => [ "Add Landscape Pictures", UIControlStateNormal ],
+	      "addTarget:action:forControlEvents" => [ self, :add_landscape_pictures, UIControlEventTouchUpInside ]
+	    }
+	    @contacts_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+	      frame: Rect([20.0, 260.0], [280.0, 40.0]),
+	      "setTitle:forState:" => [ "Add Random Contacts ", UIControlStateNormal ],
+	      "addTarget:action:forControlEvents" => [ self, :add_contacts, UIControlEventTouchUpInside ]
+	    }
+	    
       true
     end
   end
@@ -54,8 +52,26 @@ class RootScreen < PM::Screen
   def on_dismiss
   end
 
-  # custom method, triggered by tapping right nav bar button
-  def do_something
-    ap "did something"
+
+  def add_face_pictures
+  	ap "adding face pictures"
+  	faces = [ "faces/cage1.jpg".uiimage,
+  		"faces/cage2.jpg".uiimage,
+  		"faces/cage3.jpg".uiimage,
+  		"faces/cage4.jpg".uiimage,
+  		"faces/cage5.jpg".uiimage,
+  		"faces/cage6.jpg".uiimage,
+  		"faces/cage7.jpg".uiimage]
+  	faces.each do |face|
+  		UIImageWriteToSavedPhotosAlbum(face, nil, nil, nil);
+  	end
+  end
+
+  def add_landscape_pictures
+  	ap "adding landscape pictures"
+  end
+
+  def add_contacts
+  	ap "adding contacts"
   end
 end
