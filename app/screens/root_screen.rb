@@ -16,11 +16,11 @@ class RootScreen < PM::Screen
 	      "setTitle:forState:" => [ "Add Face Pictures", UIControlStateNormal ],
 	      "addTarget:action:forControlEvents" => [ self, :add_face_pictures, UIControlEventTouchUpInside ]
 	    }
-	    @landscape_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
-        frame: Rect([20.0, 170.0], [280.0, 40.0]),
-	      "setTitle:forState:" => [ "Add Landscape Pictures", UIControlStateNormal ],
-	      "addTarget:action:forControlEvents" => [ self, :add_landscape_pictures, UIControlEventTouchUpInside ]
-	    }
+	    # @landscape_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+      #   frame: Rect([20.0, 170.0], [280.0, 40.0]),
+	    #   "setTitle:forState:" => [ "Add Landscape Pictures", UIControlStateNormal ],
+	    #   "addTarget:action:forControlEvents" => [ self, :add_landscape_pictures, UIControlEventTouchUpInside ]
+	    # }
 	    @contacts_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
 	      frame: Rect([20.0, 260.0], [280.0, 40.0]),
 	      "setTitle:forState:" => [ "Add Random Contacts ", UIControlStateNormal ],
@@ -67,11 +67,37 @@ class RootScreen < PM::Screen
   	end
   end
 
-  def add_landscape_pictures
-  	ap "adding landscape pictures"
-  end
+  # def add_landscape_pictures
+  # 	ap "adding landscape pictures"
+  # end
 
   def add_contacts
   	ap "adding contacts"
+    addressBook = ABAddressBookCreate()
+    50.times do
+      record = ABPersonCreate()
+     
+      multi = ABMultiValueCreateMutable(KABStringPropertyType)
+     
+      email = Forgery(:internet).email_address
+      ABMultiValueAddValueAndLabel(multi, email, KABHomeLabel, nil)
+       
+      first_name = Forgery::Name.first_name
+      last_name = Forgery::Name.last_name
+     
+      # add the first name
+      ABRecordSetValue(record, KABPersonFirstNameProperty, first_name, nil)    
+      # add the last name
+      ABRecordSetValue(record, KABPersonLastNameProperty, last_name, nil)       
+      # add the home email
+      ABRecordSetValue(record, KABPersonEmailProperty, multi, nil)
+       
+      # add the record to the address book
+      ABAddressBookAddRecord(addressBook, record, nil)
+    end
+     
+    # save the address book
+    ABAddressBookSave(addressBook, nil)
+     
   end
 end
