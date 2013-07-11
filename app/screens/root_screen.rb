@@ -75,29 +75,14 @@ class RootScreen < PM::Screen
   	ap "adding contacts"
     addressBook = ABAddressBookCreate()
     50.times do
-      record = ABPersonCreate()
-     
-      multi = ABMultiValueCreateMutable(KABStringPropertyType)
-     
-      email = Forgery(:internet).email_address
-      ABMultiValueAddValueAndLabel(multi, email, KABHomeLabel, nil)
-       
-      first_name = Forgery::Name.first_name
-      last_name = Forgery::Name.last_name
-     
-      # add the first name
-      ABRecordSetValue(record, KABPersonFirstNameProperty, first_name, nil)    
-      # add the last name
-      ABRecordSetValue(record, KABPersonLastNameProperty, last_name, nil)       
-      # add the home email
-      ABRecordSetValue(record, KABPersonEmailProperty, multi, nil)
-       
-      # add the record to the address book
-      ABAddressBookAddRecord(addressBook, record, nil)
+      AddressBook::Person.create(
+        :first_name => Forgery::Name.first_name, 
+        :last_name => Forgery::Name.last_name, 
+        :email => [{ :value => Forgery(:internet).email_address , :label => 'Home'}], , :phones => [{ :value => rand(10 ** 10).to_s, :label => 'Mobile'}])
+
     end
      
-    # save the address book
-    ABAddressBookSave(addressBook, nil)
+
      
   end
 end

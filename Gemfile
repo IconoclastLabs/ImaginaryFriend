@@ -9,7 +9,7 @@ gem "sugarcube"
 gem "awesome_print_motion"
 gem "motion-bundler"
 gem "ProMotion", :github => "clearsightstudio/ProMotion", :branch => "version-1.0"
-
+gem 'motion-addressbook'
 # RubyMotion Unaware gems (MotionBundler)
 group :motion do
 gem "forgery"
