@@ -25,6 +25,7 @@ PLATFORMS
 DEPENDENCIES
   ProMotion!
   awesome_print_motion
+  bubble-wrap
   forgery
   motion-addressbook
   motion-bundler
