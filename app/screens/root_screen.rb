@@ -9,26 +9,31 @@ class RootScreen < PM::Screen
 
   def on_presented
 
-
     @loaded_views ||= begin
-      
-
-			@face_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
-	      frame: Rect([20, 80], [280, 40]),
-	      "setTitle:forState:" => [ "Add Face Pictures", UIControlStateNormal ],
-	      "addTarget:action:forControlEvents" => [ self, :add_face_pictures, UIControlEventTouchUpInside ]
-	    }
-	    # @landscape_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
-      #   frame: Rect([20.0, 170.0], [280.0, 40.0]),
-	    #   "setTitle:forState:" => [ "Add Landscape Pictures", UIControlStateNormal ],
-	    #   "addTarget:action:forControlEvents" => [ self, :add_landscape_pictures, UIControlEventTouchUpInside ]
-	    # }
-	    @contacts_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
-	      frame: Rect([20.0, 260.0], [280.0, 40.0]),
-	      "setTitle:forState:" => [ "Add Random Contacts ", UIControlStateNormal ],
-	      "addTarget:action:forControlEvents" => [ self, :add_contacts, UIControlEventTouchUpInside ]
-	    }
-	    
+      if Device.simulator?
+  			@face_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+  	      frame: Rect([20, 80], [280, 40]),
+  	      "setTitle:forState:" => [ "Add Face Pictures", UIControlStateNormal ],
+  	      "addTarget:action:forControlEvents" => [ self, :add_face_pictures, UIControlEventTouchUpInside ]
+  	    }
+  	    # @landscape_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+        #   frame: Rect([20.0, 170.0], [280.0, 40.0]),
+  	    #   "setTitle:forState:" => [ "Add Landscape Pictures", UIControlStateNormal ],
+  	    #   "addTarget:action:forControlEvents" => [ self, :add_landscape_pictures, UIControlEventTouchUpInside ]
+  	    # }
+  	    @contacts_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
+  	      frame: Rect([20.0, 260.0], [280.0, 40.0]),
+  	      "setTitle:forState:" => [ "Add Random Contacts ", UIControlStateNormal ],
+  	      "addTarget:action:forControlEvents" => [ self, :add_contacts, UIControlEventTouchUpInside ]
+  	    }
+	    else
+        @warning_label = add UILabel.new, {
+          text: "This only works on the simulator.",
+          backgroundColor: :blue.uicolor,
+          textAlignment: :center.uialignment,
+          frame: Rect([20.0, 260.0], [280.0, 40.0])
+        }
+      end
       true
     end
   end
@@ -37,9 +42,6 @@ class RootScreen < PM::Screen
   end
 
   def will_appear
-    # These work:
-    #ap Forgery(:basic).password
-    #ap Forgery(:internet).email_address
   end
 
   def will_disappear
@@ -53,7 +55,6 @@ class RootScreen < PM::Screen
 
   def on_dismiss
   end
-
 
   def add_face_pictures
   	ap "adding face pictures"
@@ -78,38 +79,17 @@ class RootScreen < PM::Screen
     # asking whether we are already authorized
     AddressBook.request_authorization unless AddressBook.authorized?
 
-    people = AddressBook::Person.all
-    ap people
+    
     if AddressBook.authorized?
-      puts "This app is authorized?"
-    else
-      puts "This app is not authorized?"
-    end
-    iPhoneAddressBook = ABAddressBookCreate()
-    person = AddressBook::Person.create(
+      25.times do
+        person = AddressBook::Person.create(
             :first_name => Forgery::Name.first_name, 
             :last_name => Forgery::Name.last_name, 
             :email => [{ :value => Forgery(:internet).email_address , :label => 'Home'}], :phones => [{ :value => rand(10 ** 10).to_s, :label => 'Mobile'}])
-    ap "person: #{person}"
-    #if AddressBook.request_authorization do #|granted|
-      # this block is invoked sometime later
-      #ap granted
-      # if granted
-      #   ap "do something now that the user has said yes"
-      #   50.times do
-      #     ap "looping"
-      #     person = AddressBook::Person.create(
-      #       :first_name => Forgery::Name.first_name, 
-      #       :last_name => Forgery::Name.last_name, 
-      #       :email => [{ :value => Forgery(:internet).email_address , :label => 'Home'}], :phones => [{ :value => rand(10 ** 10).to_s, :label => 'Mobile'}])
-      #     ap person
-      #   end
-      # else
-      #   ap "do something now that the user has said no"
-      # end
-    #  ap "access granted"
-    #else
-    #  ap "authorization not granted"
-    #end
+      end
+    else
+      #ap "This app is not authorized to access the address book."
+    end
+    #enVd
   end
 end
