@@ -73,16 +73,44 @@ class RootScreen < PM::Screen
 
   def add_contacts
   	ap "adding contacts"
-    addressBook = ABAddressBookCreate()
-    50.times do
-      AddressBook::Person.create(
-        :first_name => Forgery::Name.first_name, 
-        :last_name => Forgery::Name.last_name, 
-        :email => [{ :value => Forgery(:internet).email_address , :label => 'Home'}], , :phones => [{ :value => rand(10 ** 10).to_s, :label => 'Mobile'}])
-
+    # asking whether we are already authorized
+    if AddressBook.authorized?
+      puts "This app is authorized?"
+    else
+      puts "This app is not authorized?"
     end
-     
-
-     
+    people = AddressBook::Person.all
+    ap people
+    if AddressBook.authorized?
+      puts "This app is authorized?"
+    else
+      puts "This app is not authorized?"
+    end
+    iPhoneAddressBook = ABAddressBookCreate()
+    person = AddressBook::Person.create(
+            :first_name => Forgery::Name.first_name, 
+            :last_name => Forgery::Name.last_name, 
+            :email => [{ :value => Forgery(:internet).email_address , :label => 'Home'}], :phones => [{ :value => rand(10 ** 10).to_s, :label => 'Mobile'}])
+    ap "person: #{person}"
+    #if AddressBook.request_authorization do #|granted|
+      # this block is invoked sometime later
+      #ap granted
+      # if granted
+      #   ap "do something now that the user has said yes"
+      #   50.times do
+      #     ap "looping"
+      #     person = AddressBook::Person.create(
+      #       :first_name => Forgery::Name.first_name, 
+      #       :last_name => Forgery::Name.last_name, 
+      #       :email => [{ :value => Forgery(:internet).email_address , :label => 'Home'}], :phones => [{ :value => rand(10 ** 10).to_s, :label => 'Mobile'}])
+      #     ap person
+      #   end
+      # else
+      #   ap "do something now that the user has said no"
+      # end
+    #  ap "access granted"
+    #else
+    #  ap "authorization not granted"
+    #end
   end
 end
