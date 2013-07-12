@@ -8,6 +8,8 @@ class RootScreen < PM::Screen
   end
 
   def on_presented
+
+
     @loaded_views ||= begin
       
 
@@ -74,11 +76,8 @@ class RootScreen < PM::Screen
   def add_contacts
   	ap "adding contacts"
     # asking whether we are already authorized
-    if AddressBook.authorized?
-      puts "This app is authorized?"
-    else
-      puts "This app is not authorized?"
-    end
+    AddressBook.request_authorization unless AddressBook.authorized?
+
     people = AddressBook::Person.all
     ap people
     if AddressBook.authorized?
