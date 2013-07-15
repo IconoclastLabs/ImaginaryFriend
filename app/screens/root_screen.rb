@@ -59,15 +59,14 @@ class RootScreen < PM::Screen
 
   def add_face_pictures
   	ap "adding face pictures"
-  	faces = [ "faces/cage1.jpg".uiimage,
-  		"faces/cage2.jpg".uiimage,
-  		"faces/cage3.jpg".uiimage,
-  		"faces/cage4.jpg".uiimage,
-  		"faces/cage5.jpg".uiimage,
-  		"faces/cage6.jpg".uiimage,
-  		"faces/cage7.jpg".uiimage]
+    faces = []
+    dir = NSBundle.mainBundle.bundlePath
+    Dir.glob(File.join(dir, "faces/*.jpg")) do |file|
+      faces << "faces/" + File.basename(file)
+    end
+
   	faces.each do |face|
-  		UIImageWriteToSavedPhotosAlbum(face, nil, nil, nil);
+  		UIImageWriteToSavedPhotosAlbum(face.uiimage, nil, nil, nil);
   	end
   end
 
