@@ -14,7 +14,8 @@ class RootScreen < PM::Screen
   			@face_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
   	      frame: Rect([20, 80], [280, 40]),
   	      "setTitle:forState:" => [ "Add Face Pictures", UIControlStateNormal ],
-  	      "addTarget:action:forControlEvents" => [ self, :add_face_pictures, UIControlEventTouchUpInside ]
+  	      "addTarget:action:forControlEvents" => [ self, :add_face_pictures, UIControlEventTouchUpInside ],
+          accessibilityLabel: "FacePicturesButton"
   	    }
   	    # @landscape_pictures_button = add UIButton.buttonWithType(UIButtonTypeRoundedRect), {
         #   frame: Rect([20.0, 170.0], [280.0, 40.0]),

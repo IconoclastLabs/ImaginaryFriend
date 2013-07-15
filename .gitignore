@@ -6,3 +6,4 @@ resources/*.storyboardc
 tags
 provisioning
 ./vendor/bundle
+.motion-bundler.rb

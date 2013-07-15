@@ -1,6 +1,7 @@
 describe "Application 'ImaginaryFriend'" do
   before do
     @app = UIApplication.sharedApplication
+    @root_view = @app.windows[0].rootViewController.view
   end
 
   it "has one window" do
