@@ -10,7 +10,7 @@ require 'sugarcube-568'
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = '√(-Friend)'
-
+  app.frameworks += %w(MobileCoreServices AssetsLibrary)
 end
 
 # Track and specify files and their mutual dependencies within the :motion 
